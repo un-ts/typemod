@@ -1,6 +1,6 @@
 {
   "name": "typemod",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "commonjs",
   "description": "Codemod scripts to transform ts codes into latest features.",
   "repository": "git+https://github.com/rx-ts/typemod.git",
