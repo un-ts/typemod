@@ -1,9 +1,11 @@
 {
-  "extends": "@1stg/tsconfig/lib",
+  "extends": "@1stg/tsconfig/node",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "pkg": ["src"]
-    }
+      "typemod": ["src"],
+      "typemod/*": ["src/*"]
+    },
+    "resolveJsonModule": false
   }
 }

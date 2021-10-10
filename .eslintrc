@@ -1,6 +1,7 @@
 {
   "extends": "@1stg",
   "rules": {
+    "@typescript-eslint/consistent-type-imports": 2,
     "unicorn/require-post-message-target-origin": 0
   }
 }

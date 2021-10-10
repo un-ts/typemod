@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fixtures override should just work 1`] = `
+"import { A } from './_override'
+
+export class B extends A {
+  // @ts-expect-error
+  override keyX = 1
+
+  override keyY = 'y'
+
+  // @ts-expect-error
+  override methodX() {
+    return 'b'
+  }
+
+  // @ts-expect-error
+  override methodY = () => 'b'
+}
+"
+`;

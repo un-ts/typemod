@@ -1,26 +1,40 @@
 {
-  "name": "pkg",
+  "name": "typemod",
   "version": "0.0.0",
-  "type": "module",
-  "description": "A simple library boilerplate.",
-  "repository": "git+https://github.com/rx-ts/lib-boilerplate.git",
+  "type": "commonjs",
+  "description": "Codemod scripts to transform ts codes into latest features.",
+  "repository": "git+https://github.com/rx-ts/typemod.git",
   "author": "JounQin <admin@1stg.me>",
   "license": "MIT",
   "engines": {
-    "node": ">=v12.0.0"
+    "node": ">=12"
   },
+  "main": "./lib.index.js",
+  "module": "./lib/index.es2015.mjs",
   "exports": {
-    "import": "./lib/index.js",
-    "require": "./lib/index.cjs"
+    ".": {
+      "import": "./lib/index.es2015.mjs",
+      "require": "./lib.index.js"
+    },
+    "./*": "./lib/*.js"
   },
   "types": "lib",
   "files": [
     "lib",
     "!*.tsbuildinfo"
   ],
+  "keywords": [
+    "codemod-ts",
+    "js-codemod",
+    "jscodeshift",
+    "refactor",
+    "ts-codemod",
+    "tsmod",
+    "typemod"
+  ],
   "scripts": {
     "build": "run-p build:*",
-    "build:r": "r -f cjs",
+    "build:r": "r -f es2015",
     "build:ts": "tsc -p src",
     "lint": "run-p lint:*",
     "lint:es": "eslint . --cache -f friendly --max-warnings 10",
@@ -32,23 +46,25 @@
     "typecov": "type-coverage"
   },
   "dependencies": {
-    "tslib": "^2.3.1"
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "jscodeshift": "^0.13.0"
   },
   "devDependencies": {
-    "@1stg/lib-config": "^4.1.0",
+    "@1stg/lib-config": "^4.1.1",
     "@changesets/changelog-github": "^0.4.1",
     "@changesets/cli": "^2.17.0",
     "@types/jest": "^27.0.2",
+    "@types/jscodeshift": "^0.11.2",
     "@types/node": "^16.10.3",
     "ts-jest": "^27.0.5",
     "type-coverage": "^2.18.2",
-    "typescript": "^4.4.3"
+    "typescript": "^4.5.0-beta"
   },
   "resolutions": {
     "prettier": "^2.4.1"
   },
   "typeCoverage": {
-    "atLeast": 100,
+    "atLeast": 99.64,
     "cache": true,
     "detail": true,
     "ignoreAsAssertion": true,
