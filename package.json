@@ -64,7 +64,7 @@
     "prettier": "^2.4.1"
   },
   "typeCoverage": {
-    "atLeast": 99.64,
+    "atLeast": 99.68,
     "cache": true,
     "detail": true,
     "ignoreAsAssertion": true,

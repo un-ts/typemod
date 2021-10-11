@@ -4,10 +4,27 @@ import type { TsResolverOptions } from 'eslint-import-resolver-typescript'
 import { resolve } from 'eslint-import-resolver-typescript'
 import type { ClassDeclaration, Collection, File, Transform } from 'jscodeshift'
 
+const defaultPackageFilter = (pkg: Record<string, string>) => {
+  pkg.main =
+    // prefer single bundled file
+    pkg.fesm2015 ||
+    pkg.module ||
+    pkg.types ||
+    pkg.typings ||
+    pkg['jsnext:main'] ||
+    pkg.main
+  return pkg
+}
+
 const transform: Transform = (
   fileInfo,
   { j, report },
-  options: TsResolverOptions | null = null,
+  options?:
+    | (Omit<TsResolverOptions, 'extensions'> & {
+        extensions?: string
+        tsResolverExtensions?: string[]
+      })
+    | null,
   // eslint-disable-next-line sonarjs/cognitive-complexity
 ) => {
   const { ClassDeclaration, ClassProperty, ClassMethod, ImportDeclaration } = j
@@ -17,7 +34,6 @@ const transform: Transform = (
   const imports = root.find(ImportDeclaration)
   const classes = root.find(ClassDeclaration)
 
-  const superClasses = classes.filter(path => !path.node.superClass)
   const subClasses = classes.filter(path => !!path.node.superClass)
 
   for (const path of subClasses.paths()) {
@@ -30,27 +46,37 @@ const transform: Transform = (
       continue
     }
 
-    const superCls = superClass.name
+    let superCls = superClass.name
 
-    let superClassNodes = superClasses
+    let superClassNodes = classes
       .filter(path => path.node.id!.name === superCls)
       .nodes()
 
     if (superClassNodes.length === 0) {
       // it could be imported
-      const matched = imports
-        .nodes()
-        .find(node =>
-          node.specifiers?.some(
-            specifier => specifier.local?.name === superCls,
-          ),
-        )
+      const matched = imports.nodes().find(node =>
+        node.specifiers?.some(specifier => {
+          const matched = specifier.local?.name === superCls
+          if (matched && 'imported' in specifier) {
+            superCls = specifier.imported.name
+          }
+          return matched
+        }),
+      )
 
       if (matched) {
         const resolved = resolve(
           matched.source.value as string,
           fileInfo.path,
-          options,
+          {
+            ...options,
+            extensions: options?.tsResolverExtensions,
+            packageFilter: options?.packageFilter || defaultPackageFilter,
+            project:
+              typeof options?.project === 'string'
+                ? options.project.split(',')
+                : options?.project,
+          },
         )
         if (!resolved.found) {
           report(`unable to resolve super class: ${superCls}`)
@@ -68,7 +94,6 @@ const transform: Transform = (
 
         superClassNodes = superRoot
           .find(ClassDeclaration)
-          .filter(path => !path.node.superClass)
           .filter(path => path.node.id!.name === superCls)
           .nodes()
       }
@@ -96,7 +121,7 @@ const transform: Transform = (
     for (const subPath of subPaths) {
       const { key } = subPath.node
 
-      if (key.type !== 'Identifier') {
+      if (key.type !== 'Identifier' || key.name === 'constructor') {
         continue
       }
 
@@ -112,6 +137,12 @@ const transform: Transform = (
         'override' in subPath.node ||
         key.name.startsWith('override ')
       ) {
+        continue
+      }
+
+      // eslint-disable-next-line unicorn/consistent-destructuring
+      if ('async' in subPath.node && subPath.node.async) {
+        report(`async method is not supported: ${key.name}`)
         continue
       }
 
