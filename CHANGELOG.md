@@ -1,5 +1,11 @@
 # typemod
 
+## 0.0.3
+
+### Patch Changes
+
+- [#4](https://github.com/rx-ts/typemod/pull/4) [`57fd7cd`](https://github.com/rx-ts/typemod/commit/57fd7cd5518e25d7fefb5f03c3312b5d0ef42ad0) Thanks [@JounQin](https://github.com/JounQin)! - fix: import mapping, ignore constructor and async method
+
 ## 0.0.2
 
 ### Patch Changes
