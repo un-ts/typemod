@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "eslint-import-resolver-typescript": "^2.5.0",
-    "jscodeshift": "^0.13.0"
+    "jscodeshift": "^0.13.1"
   },
   "devDependencies": {
     "@1stg/lib-config": "^4.1.2",
