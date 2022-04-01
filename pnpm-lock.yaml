@@ -5,7 +5,7 @@ overrides:
 
 specifiers:
   '@1stg/lib-config': ^4.1.2
-  '@changesets/changelog-github': ^0.4.3
+  '@changesets/changelog-github': ^0.4.4
   '@changesets/cli': ^2.17.0
   '@types/jest': ^27.0.3
   '@types/jscodeshift': ^0.11.3
@@ -22,7 +22,7 @@ dependencies:
 
 devDependencies:
   '@1stg/lib-config': 4.1.2_typescript@4.5.4
-  '@changesets/changelog-github': 0.4.3
+  '@changesets/changelog-github': 0.4.4
   '@changesets/cli': 2.17.0
   '@types/jest': 27.0.3
   '@types/jscodeshift': 0.11.3
@@ -1903,11 +1903,11 @@ packages:
       semver: 5.7.1
     dev: true
 
-  /@changesets/changelog-github/0.4.3:
-    resolution: {integrity: sha512-93X4arork7DV4+tVYeNlOTrw7HOXIvvd41yRPY9atJ+nS32W0uS+ewkZdc6WThuqmwGx9xaU+pxHtVLeYJTF0A==}
+  /@changesets/changelog-github/0.4.4:
+    resolution: {integrity: sha512-htSILqCkyYtTB5/LoVKwx7GCJQGxAiBcYbfUKWiz/QoDARuM01owYtMXhV6/iytJZq/Dqqz3PjMZUNB4MphpbQ==}
     dependencies:
       '@changesets/get-github-info': 0.5.0
-      '@changesets/types': 4.1.0
+      '@changesets/types': 5.0.0
       dotenv: 8.6.0
     dev: true
 
@@ -2051,6 +2051,10 @@ packages:
 
   /@changesets/types/4.1.0:
     resolution: {integrity: sha512-LDQvVDv5Kb50ny2s25Fhm3d9QSZimsoUGBsUioj6MC3qbMUCuC8GPIvk/M6IvXx3lYhAs0lwWUQLb+VIEUCECw==}
+    dev: true
+
+  /@changesets/types/5.0.0:
+    resolution: {integrity: sha512-IT1kBLSbAgTS4WtpU6P5ko054hq12vk4tgeIFRVE7Vnm4a/wgbNvBalgiKP0MjEXbCkZbItiGQHkCGxYWR55sA==}
     dev: true
 
   /@changesets/write/0.1.5:
