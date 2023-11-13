@@ -46,7 +46,7 @@
     "typecov": "type-coverage"
   },
   "dependencies": {
-    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
     "jscodeshift": "^0.13.1"
   },
   "devDependencies": {
