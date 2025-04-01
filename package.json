@@ -7,7 +7,7 @@
   "author": "JounQin <admin@1stg.me>",
   "license": "MIT",
   "engines": {
-    "node": ">=v12.22.11"
+    "node": ">=12.22.12"
   },
   "main": "./lib.index.js",
   "module": "./lib/index.es2015.mjs",
